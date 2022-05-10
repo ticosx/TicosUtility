@@ -25,7 +25,7 @@
 #ifndef LOG_H_
 #define LOG_H_
 
-#define LOGLEVEL  LOGLEVEL_ERR
+#define LOGLEVEL  LOGLEVEL_DEBUG
 
 // TODO: Consider to change to ArduinoLog https://www.arduino.cc/reference/en/libraries/arduinolog/
 // But now Luban cannot ensure the init of ArduinoLog is executed in the first, use this implementation first
@@ -37,20 +37,20 @@
 #define LOGLEVEL_DEBUG		4	/* debug-level messages */
 #define LOGLEVEL_VERBOSE		4	/* very detail messages */
 
-#define log(tag, level, format, ...) Serial.printf(level " %s " format "\033[0m", tag, ## __VA_ARGS__)
+#define logPrt(tag, level, format, ...) Serial.printf(level " %s " format "\033[0m", tag, ## __VA_ARGS__)
 
 #define error(tag, format, ...) {if(LOGLEVEL >= LOGLEVEL_ERR) \
-  log(tag, "\033[0;31;49mE", format, ## __VA_ARGS__);}
+  logPrt(tag, "\033[0;31;49mE", format, ## __VA_ARGS__);}
 #define warn(tag, format, ...) {if(LOGLEVEL >= LOGLEVEL_WARNING) \
-  log(tag, "\033[0;32;49mW", format, ## __VA_ARGS__);}
+  logPrt(tag, "\033[0;32;49mW", format, ## __VA_ARGS__);}
 #define notice(tag, format, ...) {if(LOGLEVEL >= LOGLEVEL_NOTICE) \
-  log(tag, "\033[0;33;49mN", format, ## __VA_ARGS__);}
+  logPrt(tag, "\033[0;33;49mN", format, ## __VA_ARGS__);}
 #define info(tag, format, ...) {if(LOGLEVEL >= LOGLEVEL_INFO) \
-  log(tag, "\033[0;34;49mI", format, ## __VA_ARGS__);}
+  logPrt(tag, "\033[0;34;49mI", format, ## __VA_ARGS__);}
 #define debug(tag, format, ...) {if(LOGLEVEL >= LOGLEVEL_DEBUG) \
-  log(tag, "\033[0;36;49mD", format, ## __VA_ARGS__);}
+  logPrt(tag, "\033[0;36;49mD", format, ## __VA_ARGS__);}
 #define verbose(tag, format, ...) {if(LOGLEVEL >= LOGLEVEL_VERBOSE) \
-  log(tag, "\033[0;37;49mV", format, ## __VA_ARGS__);}
+  logPrt(tag, "\033[0;37;49mV", format, ## __VA_ARGS__);}
 
 
 #endif //LOG_H_
