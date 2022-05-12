@@ -27,9 +27,6 @@
 
 #define LOGLEVEL  LOGLEVEL_DEBUG
 
-// TODO: Consider to change to ArduinoLog https://www.arduino.cc/reference/en/libraries/arduinolog/
-// But now Luban cannot ensure the init of ArduinoLog is executed in the first, use this implementation first
-
 #define LOGLEVEL_ERR		0	/* error conditions */
 #define LOGLEVEL_WARNING	1	/* warning conditions */
 #define LOGLEVEL_NOTICE		2	/* normal but significant condition */
@@ -37,20 +34,22 @@
 #define LOGLEVEL_DEBUG		4	/* debug-level messages */
 #define LOGLEVEL_VERBOSE		4	/* very detail messages */
 
-#define logPrt(tag, level, format, ...) Serial.printf(level " %s " format "\033[0m", tag, ## __VA_ARGS__)
+const char * getFilename(const char * path);
 
-#define error(tag, format, ...) {if(LOGLEVEL >= LOGLEVEL_ERR) \
-  logPrt(tag, "\033[0;31;49mE", format, ## __VA_ARGS__);}
-#define warn(tag, format, ...) {if(LOGLEVEL >= LOGLEVEL_WARNING) \
-  logPrt(tag, "\033[0;32;49mW", format, ## __VA_ARGS__);}
-#define notice(tag, format, ...) {if(LOGLEVEL >= LOGLEVEL_NOTICE) \
-  logPrt(tag, "\033[0;33;49mN", format, ## __VA_ARGS__);}
-#define info(tag, format, ...) {if(LOGLEVEL >= LOGLEVEL_INFO) \
-  logPrt(tag, "\033[0;34;49mI", format, ## __VA_ARGS__);}
-#define debug(tag, format, ...) {if(LOGLEVEL >= LOGLEVEL_DEBUG) \
-  logPrt(tag, "\033[0;36;49mD", format, ## __VA_ARGS__);}
-#define verbose(tag, format, ...) {if(LOGLEVEL >= LOGLEVEL_VERBOSE) \
-  logPrt(tag, "\033[0;37;49mV", format, ## __VA_ARGS__);}
+#define logPrt(level, format, ...) Serial.printf(level ": %s:%u %s(): " format "\033[0m\r\n", getFilename(__FILE__), __LINE__, __FUNCTION__, ## __VA_ARGS__)
+
+#define logErr(format, ...) {if(LOGLEVEL >= LOGLEVEL_ERR) \
+  logPrt("\033[0;31;49mE", format, ## __VA_ARGS__);}
+#define logWarn(format, ...) {if(LOGLEVEL >= LOGLEVEL_WARNING) \
+  logPrt("\033[0;32;49mW", format, ## __VA_ARGS__);}
+#define logNotice(format, ...) {if(LOGLEVEL >= LOGLEVEL_NOTICE) \
+  logPrt("\033[0;33;49mN", format, ## __VA_ARGS__);}
+#define logInfo(format, ...) {if(LOGLEVEL >= LOGLEVEL_INFO) \
+  logPrt("\033[0;34;49mI", format, ## __VA_ARGS__);}
+#define logDebug(format, ...) {if(LOGLEVEL >= LOGLEVEL_DEBUG) \
+  logPrt("\033[0;36;49mD", format, ## __VA_ARGS__);}
+#define logVerbose(format, ...) {if(LOGLEVEL >= LOGLEVEL_VERBOSE) \
+  logPrt("\033[0;37;49mV", format, ## __VA_ARGS__);}
 
 
 #endif //LOG_H_
