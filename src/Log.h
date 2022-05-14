@@ -32,7 +32,7 @@
 #define LOGLEVEL_NOTICE		2	/* normal but significant condition */
 #define LOGLEVEL_INFO		3	/* informational */
 #define LOGLEVEL_DEBUG		4	/* debug-level messages */
-#define LOGLEVEL_VERBOSE		4	/* very detail messages */
+#define LOGLEVEL_VERBOSE		5	/* very detail messages */
 
 const char * getFilename(const char * path);
 
