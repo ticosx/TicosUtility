@@ -25,6 +25,8 @@
 #ifndef LOG_H_
 #define LOG_H_
 
+#include "Util.h"
+
 #define LOGLEVEL  LOGLEVEL_DEBUG
 
 #define LOGLEVEL_ERR		0	/* error conditions */
@@ -33,8 +35,6 @@
 #define LOGLEVEL_INFO		3	/* informational */
 #define LOGLEVEL_DEBUG		4	/* debug-level messages */
 #define LOGLEVEL_VERBOSE		5	/* very detail messages */
-
-const char * getFilename(const char * path);
 
 #define logPrt(level, format, ...) Serial.printf(level ": %s:%u %s(): " format "\033[0m\r\n", getFilename(__FILE__), __LINE__, __FUNCTION__, ## __VA_ARGS__)
 
